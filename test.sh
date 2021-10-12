@@ -1,2 +1,2 @@
-cd bin && ./averager ../small_images ../result.txt && cd ..
+cd bin && ./averager ../small_images ../result.pgm && cd ..
 
