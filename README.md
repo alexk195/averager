@@ -17,6 +17,9 @@ Build with build.sh
 
 Test with test.sh
 
+## Execution
+Binary is in bin folder. Provide as first parameter the directory, provide as second parameter the resulting file name.
+
 
 
 
