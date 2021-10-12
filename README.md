@@ -1,15 +1,18 @@
 # averager
 Average all PGM images in a folder
+## Requirements
+gcc version 9 with C++17 support
 
-Build and Test Scripts
+## Build and Test Scripts
 
-Windows:
-build.bat 
-test.bat
+### Windows:
+Build with build.bat
+Test with test.bat
 
-Linux:
-build.sh
-test.sh
+### Linux:
+Build with build.sh
+Test with test.sh
+
 
 
 
