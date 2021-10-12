@@ -90,9 +90,10 @@ public:
 
                     case s_data:
                     {
-                        while(!iss.eof() && pos < maxpos)
+                        size_t xc = 0;
+                        while(!iss.eof() && pos < maxpos && xc < sx)
                         {
-                            T data;
+                            T data = 0;
                             iss >> data;
                             
                             // temporary disable max value check
@@ -103,6 +104,7 @@ public:
                             }
                             Array2D<T>::at(pos%sx,pos/sx) = data;
                             pos++;
+                            xc++;
                         }
                         if (pos == maxpos)
                         {
