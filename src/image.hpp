@@ -59,12 +59,17 @@ public:
             while(!fs.eof() && s_finish != st)
             {
                 std::getline(fs,line);
+                //std::cout << "Got line:" << line << "," << line.length()  <<  "\n";
                 if (startsWith(line,"#") || line.length()==0)
                 {
-                    // comment of empty line
+                    // comment or empty line
                     continue;
                 }
-                //std::cout << "Got line:" << line << "\n";
+		if (line.length()==1 && line[0]=='\r') 
+		{
+		    // special windows issue with CR
+		    continue;
+		}
                 std::stringstream iss(line);
                 switch (st)
                 {
