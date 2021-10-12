@@ -7,10 +7,14 @@ gcc version 9 with C++17 support
 
 ### Windows:
 Build with build.bat
+
+
 Test with test.bat
 
 ### Linux:
 Build with build.sh
+
+
 Test with test.sh
 
 
