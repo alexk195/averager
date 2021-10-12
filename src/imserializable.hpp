@@ -1,10 +1,11 @@
-#ifndef A_IMSERIALIZABLE_H
-#define A_IMSERIALIZABLE_H
+#ifndef SRC_IMSERIALIZABLE_HPP_
+#define SRC_IMSERIALIZABLE_HPP_
 
 #include <iostream>
 #include <fstream>
 #include <istream>
 #include <sstream>
+#include <string>
 
 namespace av
 {
@@ -14,7 +15,7 @@ namespace av
  * */
 class SerializableInterf
 {
-public:
+ public:
     /// @param fs stream
     /// deserializes the instance from given stream
     virtual void deserialize(std::istream & fs) = 0;  
@@ -31,7 +32,7 @@ public:
  * */
 class FileSerialize
 {
-public:
+ public:
     /// @param ser serializable object
     /// @param fname file name
     /// loads serializable data from file
@@ -41,10 +42,10 @@ public:
     /// @param fname file name
     /// saves serializable data to file
     virtual void save(SerializableInterf & ser, const std::string & fname);
-    
+
     virtual ~FileSerialize() = default;
 };
 
-} // of namespace
+}  // of namespace av
 
-#endif
+#endif  // SRC_IMSERIALIZABLE_HPP_

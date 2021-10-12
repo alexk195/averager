@@ -1,13 +1,14 @@
-#ifndef A_ARRAY2D_H
-#define A_ARRAY2D_H
+#ifndef SRC_ARRAY2D_HPP_
+#define SRC_ARRAY2D_HPP_
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <tuple>
 
 namespace av
 {
 
-typedef std::tuple<size_t,size_t> Size2d;
+typedef std::tuple<size_t, size_t> Size2d;
 
 /**
  * 2D Array of elements of type T.
@@ -18,12 +19,10 @@ typedef std::tuple<size_t,size_t> Size2d;
 template<typename T>
 class Array2D
 {
+ protected:
+    std::vector<T> data2d;  ///< internal data structure
 
-protected:
-    
-    std::vector<T> data2d;///< internal data structure
-
-    Size2d datasize2d; ///< internal size
+    Size2d datasize2d;  ///< internal size
 
     /**
      * @param x,y coordinates
@@ -42,8 +41,7 @@ protected:
         return 0;
     }
 
-public:
-    
+ public:
     /**
      * @param size size of 2d array
      * resizes array to gived size
@@ -51,7 +49,7 @@ public:
     void resize(const Size2d & size)
     {
         std::cout << "Resize " << std::get<0>(size) << "," << std::get<1>(size) << "\n";
-        datasize2d=size;
+        datasize2d = size;
         data2d.resize(std::get<0>(datasize2d)*std::get<1>(datasize2d));
     }
 
@@ -60,7 +58,7 @@ public:
      **/
     T& at(const size_t x, const size_t y)
     {
-        return data2d.at(index(x,y));
+        return data2d.at(index(x, y));
     }
 
     /**
@@ -68,7 +66,7 @@ public:
      **/
     const T& at(const size_t x, const size_t y) const
     {
-        return data2d.at(index(x,y));
+        return data2d.at(index(x, y));
     }
 
     /**
@@ -91,6 +89,6 @@ public:
 };
 
 
-} // namespace
+}  // namespace av
 
-#endif
+#endif  // SRC_ARRAY2D_HPP_

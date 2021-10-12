@@ -21,4 +21,4 @@ void FileSerialize::save(SerializableInterf & ser, const std::string & fname)
     fs.close();
 }
 
-} // namespace
+}  // namespace av

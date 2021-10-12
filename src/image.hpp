@@ -1,8 +1,9 @@
-#ifndef A_IMAGE_H
-#define A_IMAGE_H
+#ifndef SRC_IMAGE_HPP_
+#define SRC_IMAGE_HPP_
 
 #include <functional>
 #include <iostream>
+#include <string>
 
 #include "array2d.hpp"
 #include "imserializable.hpp"
@@ -22,7 +23,7 @@ class ImagePgm : public Array2D<T>, public SerializableInterf
     /// used to detect comments in pgm file. The # must be first character.
     bool startsWith(const std::string & str, const std::string & what) const
     {
-        return str.compare(0,what.length(),what)==0;
+        return str.compare(0, what.length(), what) == 0;
     }
 
     /// States for reading
@@ -31,8 +32,7 @@ class ImagePgm : public Array2D<T>, public SerializableInterf
     /// max value is part of PGM
     T maxVal;
 
-public:
-
+ public:
     void setMaxVal(const T & v)
     {
         maxVal = v;
@@ -48,35 +48,35 @@ public:
     {
         std::string line;
         char magic[2];
-        fs.read(magic,sizeof(magic));
+        fs.read(magic, sizeof(magic));
         State st = s_size;
         uint32_t maxval;
         size_t pos = 0;
         size_t maxpos;
-        uint32_t sx,sy;
+        uint32_t sx, sy;
         if (magic[0] == 'P'  && magic[1] == '2')
         {
-            while(!fs.eof() && s_finish != st)
+            while (!fs.eof() && s_finish != st)
             {
-                std::getline(fs,line);
-                //std::cout << "Got line:" << line << "," << line.length()  <<  "\n";
-                if (startsWith(line,"#") || line.length()==0)
+                std::getline(fs, line);
+                // std::cout << "Got line:" << line << "," << line.length()  <<  "\n";
+                if (startsWith(line, "#") || line.length() == 0)
                 {
                     // comment or empty line
                     continue;
                 }
-		if (line.length()==1 && line[0]=='\r') 
-		{
-		    // special windows issue with CR
-		    continue;
-		}
+                if (line.length() == 1 && line[0] == '\r')
+                {
+                    // special windows issue with CR
+                    continue;
+                }
                 std::stringstream iss(line);
                 switch (st)
                 {
-                    case s_size: 
+                    case s_size:
                     {
                         iss >> sx >> sy;
-                        Array2D<T>::resize(Size2d(sx,sy));
+                        Array2D<T>::resize(Size2d(sx, sy));
                         maxpos = sx*sy;
                         st = s_maxval;
                     } break;
@@ -91,18 +91,18 @@ public:
                     case s_data:
                     {
                         size_t xc = 0;
-                        while(!iss.eof() && pos < maxpos && xc < sx)
+                        while (!iss.eof() && pos < maxpos && xc < sx)
                         {
                             T data = 0;
                             iss >> data;
-                            
+
                             // temporary disable max value check
-                            if (0) 
-                            {    
+                            if (0)
+                            {
                                 if (data > maxval)
                                     throw std::runtime_error("Pixel value must not be larger than max value");
                             }
-                            Array2D<T>::at(pos%sx,pos/sx) = data;
+                            Array2D<T>::at(pos%sx, pos/sx) = data;
                             pos++;
                             xc++;
                         }
@@ -126,21 +126,20 @@ public:
     /// writes image data to stream
     void serialize(std::ostream & fs) override
     {
-        std::string magic="P2";
+        std::string magic = "P2";
         fs << magic << "\n";
         const auto imsize = Array2D<T>::size();
         fs << std::get<0>(imsize) << " " << std::get<1>(imsize)<< "\n";
         fs << getMaxVal() << "\n";
-        for (size_t y=0;y < std::get<1>(imsize);y++)
+        for (size_t y = 0; y < std::get<1>(imsize); y++)
         {
-            for (size_t x=0;x < std::get<0>(imsize);x++)
+            for (size_t x = 0; x < std::get<0>(imsize); x++)
             {
-                fs << Array2D<T>::at(x,y) << " ";    
+                fs << Array2D<T>::at(x, y) << " ";
             }
             fs << "\n";
         }
-    }    
+    }
 };
-
-}
-#endif
+}  // namespace av
+#endif  // SRC_IMAGE_HPP_
