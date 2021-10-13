@@ -1,1 +1,1 @@
-cd bin && averager.exe ../small_images ../result.pgm && cd ..
+cd bin && averager.exe ../small_images ../average.pgm && cd ..
